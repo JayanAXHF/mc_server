@@ -2,8 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="w-full h-[20rem] bg-black flex flex-col">
-      <div className="w-full h-full flex flex-row px-48 items-center  gap-x-10 justify-between">
+    <footer className="w-full min-h-[20rem] bg-black flex flex-col py-10 gap-y-10">
+      <div className="w-full h-full flex flex-col px-10 lg:flex-row lg:px-48 items-center  gap-x-10 justify-between">
         {" "}
         <span>
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
@@ -34,7 +34,7 @@ const Footer = () => {
           </ul>
         </span>
         <span>
-          <p className="text-xl text-muted-foreground max-w-lg">
+          <p className="lg:text-xl text-lg  text-muted-foreground max-w-lg">
             When you apply, you will be interviewed by one of the admins or the
             owner
           </p>

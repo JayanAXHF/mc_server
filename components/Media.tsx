@@ -9,12 +9,12 @@ import { PinContainer } from "./ui/3d-pin";
 
 export function Media() {
   return (
-    <div className="h-[40rem] flex flex-col lg:flex-col overflow-hidden  justify-center bg-neutral-950 w-full gap-4 mx-auto px-8 relative items-start">
+    <div className="min-h-[40rem] flex flex-col  overflow-hidden  justify-center bg-neutral-950 w-full gap-4 mx-auto px-8 relative items-start py-10">
       <h1 className="text-4xl text-center w-full font-extrabold tracking-tight lg:text-5xl z-10">
         Our social presence
       </h1>
 
-      <div className="w-1/2 mx-auto flex flex-row justify-around mt-10 z-10">
+      <div className="w-1/2 mx-auto flex flex-col md:flex-row justify-around mt-10 z-10">
         <PinContainer
           title="Join the Server"
           href="https://discord.gg/BKUfDxCwpe"
