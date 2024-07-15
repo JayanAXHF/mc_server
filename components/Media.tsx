@@ -14,7 +14,7 @@ export function Media() {
         Our social presence
       </h1>
 
-      <div className="w-1/2 mx-auto flex flex-col md:flex-row justify-around mt-10 z-10">
+      <div className="w-1/2 mx-auto flex flex-col md:flex-row gap-y-10 justify-around mt-10 z-10">
         <PinContainer
           title="Join the Server"
           href="https://discord.gg/BKUfDxCwpe"
