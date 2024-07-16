@@ -1,26 +1,48 @@
-import React from "react";
-import {
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalTrigger,
-} from "./ui/animated-modal";
+import React, { useState } from "react";
+import { Modal, ModalBody, ModalTrigger } from "./ui/animated-modal";
 import { cn } from "@/lib/utils";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import { db } from "@/firebase";
+import { ref, set } from "firebase/database";
+import { customAlphabet, nanoid } from "nanoid";
 
+import { sendDiscordMessage } from "@/app/_actions/discord";
 const ApplicationModal = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
   };
+
+  interface FormData {
+    fName: string;
+    sName: string;
+    ign: string;
+    discord: string;
+  }
+
+  const [formData, setFormData] = useState({
+    fName: "",
+    sName: "",
+    ign: "",
+    discord: "",
+  });
+
+  const handleOnSubmit = async () => {
+    const userId = customAlphabet("1234567890", 10)();
+    ("");
+    await set(ref(db, "users/" + userId), { ...formData, uuid: userId });
+    await sendDiscordMessage(`> **\`Player ${formData.ign} has applied for whitelist\`**
+First name:** ${formData.fName}**
+Last Name: **${formData.sName}**
+IGN: **${formData.ign}**
+Discord Gamertag:**${formData.discord}**`);
+  };
+
   return (
     <Modal>
       <ModalTrigger className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
-        {" "}
-        {/* <button className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl"> */}
         Next
-        {/* </button> */}
       </ModalTrigger>
       <ModalBody className="py-20  flex items-center justify-center">
         <h4 className="text-lg md:text-2xl text-neutral-600 dark:text-neutral-100 font-bold text-center mb-8">
@@ -35,25 +57,56 @@ const ApplicationModal = () => {
             <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
               <LabelInputContainer>
                 <Label htmlFor="firstname">First name</Label>
-                <Input id="firstname" placeholder="Tyler" type="text" />
+                <Input
+                  id="firstname"
+                  placeholder="Tyler"
+                  type="text"
+                  value={formData.fName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, fName: e.target.value })
+                  }
+                />
               </LabelInputContainer>
               <LabelInputContainer>
                 <Label htmlFor="lastname">Last name</Label>
-                <Input id="lastname" placeholder="Durden" type="text" />
+                <Input
+                  id="lastname"
+                  placeholder="Durden"
+                  type="text"
+                  value={formData.sName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, sName: e.target.value })
+                  }
+                />
               </LabelInputContainer>
             </div>
             <LabelInputContainer className="mb-4">
               <Label htmlFor="text">Discord Gamertag</Label>
-              <Input id="text" placeholder="projectmayhem@fc.com" type="text" />
+              <Input
+                id="text"
+                type="text"
+                value={formData.discord}
+                onChange={(e) =>
+                  setFormData({ ...formData, discord: e.target.value })
+                }
+              />
             </LabelInputContainer>
             <LabelInputContainer className="mb-4">
               <Label htmlFor="ign">In-Game Name</Label>
-              <Input id="ign" placeholder="••••••••" type="text" />
+              <Input
+                id="ign"
+                type="text"
+                value={formData.ign}
+                onChange={(e) =>
+                  setFormData({ ...formData, ign: e.target.value })
+                }
+              />
             </LabelInputContainer>
 
             <button
               className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
               type="submit"
+              onClick={handleOnSubmit}
             >
               Apply &rarr;
               <BottomGradient />
