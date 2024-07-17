@@ -40,7 +40,9 @@ const ApplicationModal = () => {
 First name:** ${formData.fName}**
 Last Name: **${formData.sName}**
 IGN: **${formData.ign}**
-Discord Gamertag:**${formData.discord}**`);
+Discord Gamertag:**${formData.discord}**
+@everyone
+`);
   };
 
   return (
