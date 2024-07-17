@@ -1,16 +1,10 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { MillionLintProvider } from "@million/lint/runtime";
 import {
-  IconAdjustmentsBolt,
   IconAlignBoxRightBottom,
   IconBuildingBroadcastTower,
   IconClock24,
-  IconCloud,
-  IconCurrencyDollar,
-  IconEaseInOut,
-  IconHeart,
-  IconHelp,
-  IconRouteAltLeft,
   IconSwords,
 } from "@tabler/icons-react";
 
@@ -42,13 +36,15 @@ export function FeaturesSection() {
     },
   ];
   return (
-    <div className="bg-neutral-950 w-full">
-      <div className="grid bg-neutral-950 grid-cols-1 md:grid-cols-2 lg:grid-cols-4  relative z-10 py-10 px-10 mx-auto">
-        {features.map((feature, index) => (
-          <Feature key={feature.title} {...feature} index={index} />
-        ))}
+    <MillionLintProvider>
+      <div className="bg-neutral-950 w-full">
+        <div className="grid bg-neutral-950 grid-cols-1 md:grid-cols-2 lg:grid-cols-4  relative z-10 py-10 px-10 mx-auto">
+          {features.map((feature, index) => (
+            <Feature key={feature.title} {...feature} index={index} />
+          ))}
+        </div>
       </div>
-    </div>
+    </MillionLintProvider>
   );
 }
 

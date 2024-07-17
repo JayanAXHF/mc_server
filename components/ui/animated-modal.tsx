@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { MillionLintProvider } from "@million/lint/runtime";
 import { AnimatePresence, motion } from "framer-motion";
 import React, {
   ReactNode,
@@ -36,7 +37,11 @@ export const useModal = () => {
 };
 
 export function Modal({ children }: { children: ReactNode }) {
-  return <ModalProvider>{children}</ModalProvider>;
+  return (
+    <MillionLintProvider>
+      <ModalProvider>{children}</ModalProvider>
+    </MillionLintProvider>
+  );
 }
 
 export const ModalTrigger = ({
