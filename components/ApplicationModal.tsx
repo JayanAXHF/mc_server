@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Modal, ModalBody, ModalTrigger } from "./ui/animated-modal";
 import { cn } from "@/lib/utils";
 import { Label } from "./ui/label";
@@ -12,7 +12,12 @@ import { customAlphabet, nanoid } from "nanoid";
 import { sendDiscordMessage } from "@/app/_actions/discord";
 import { MillionLintProvider } from "@million/lint/runtime";
 
-const ApplicationModal = () => {
+interface PropTypes {
+  discord: string;
+  setDiscord: Dispatch<SetStateAction<string>>;
+}
+
+const ApplicationModal = ({ discord, setDiscord }: PropTypes) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -92,10 +97,8 @@ Discord Gamertag:**${formData.discord}**
                 <Input
                   id="text"
                   type="text"
-                  value={formData.discord}
-                  onChange={(e) =>
-                    setFormData({ ...formData, discord: e.target.value })
-                  }
+                  value={discord}
+                  onChange={(e) => setDiscord(e.target.value)}
                 />
               </LabelInputContainer>
               <LabelInputContainer className="mb-4">
