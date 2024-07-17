@@ -11,6 +11,8 @@ import { customAlphabet, nanoid } from "nanoid";
 
 import { sendDiscordMessage } from "@/app/_actions/discord";
 import { MillionLintProvider } from "@million/lint/runtime";
+import { Toaster } from "./ui/toaster";
+import { useToast } from "./ui/use-toast";
 
 interface PropTypes {
   discord: string;
@@ -18,6 +20,7 @@ interface PropTypes {
 }
 
 const ApplicationModal = ({ discord, setDiscord }: PropTypes) => {
+  const { toast } = useToast();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -48,6 +51,10 @@ IGN: **${formData.ign}**
 Discord Gamertag:**${formData.discord}**
 @everyone
 `);
+    toast({
+      title: "Application submitted id: ${userId}",
+      description: `You have successfully applied for whitelist. You will be notified when your application is approved. Application Id: ${userId}`,
+    });
   };
 
   return (
@@ -124,6 +131,7 @@ Discord Gamertag:**${formData.discord}**
             </form>
           </div>
         </ModalBody>
+        <Toaster />
       </Modal>
     </MillionLintProvider>
   );
